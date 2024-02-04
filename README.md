@@ -4,8 +4,8 @@ Tech Stack used: Backend: Java, Springboot, Frontend: Javascript, Ajax, html, cs
 
 To run the application,
 
-download the github repo and run application in the intelliJ ide.
+download the github repo and then run application in the intelliJ ide.
 
-And, try: http://localhost:8081/api/v1/travel/frontend in the browser (UI view).
+And, try: http://localhost:8081/api/v1/travel/frontend in the your browser (UI view).
 
 To see in the Json format, hit the url: http://localhost:8081/api/v1/travel/info
