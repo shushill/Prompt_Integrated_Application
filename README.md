@@ -6,4 +6,6 @@ To run the application,
 
 download the github repo and run application in the intelliJ ide.
 
-And, try: http://localhost:8081/api/v1/travel/frontend in the browser.
+And, try: http://localhost:8081/api/v1/travel/frontend in the browser (UI view).
+
+To see in the Json format, hit the url: http://localhost:8081/api/v1/travel/info
