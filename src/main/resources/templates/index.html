@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project portal</title>
+   
+    <link th:href="@{/css/bootstrap.css}" th:rel="stylesheet" />
+
+    <link th:href="@{/css/font-awesome.css}" th:rel="stylesheet" />
+
+    <link th:href="@{/css/custom-styles.css}" th:rel="stylesheet" />
+
+    <script th:src="@{/js/jquery-1.10.2.js}"></script>
+
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <script th:src="@{/js/jquery.metisMenu.js}"></script>
+
+    <script th:src="@{/js/custom.js}"></script>
+
+    <link th:href="@{http://fonts.googleapis.com/css?family=Open+Sans}" th:rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="wrapper">
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                 <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="page-header" >
+                                Travel Planner
+                            </h1>
+                        </div>
+
+
+
+                 </div>
+                <div class="row">
+                    <form id="myForm">
+
+                        <div id="messages">
+                            <div  class="form-group">
+                                <label for="systemRole" >System Role:</label>
+                                <input type="text" class="form-control" id="systemRole" name="messages[0].role" required>
+                            </div >
+                            <div class="form-group">
+                                <label for="systemContent">System Content:</label>
+                                <input type="text" class="form-control"  id="systemContent" name="messages[0].content" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userRole">User Role:</label>
+                                <input type="text" class="form-control"  id="userRole" name="messages[1].role" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userContent">User Content:</label>
+                                <input type="text" class="form-control" id="userContent" name="messages[1].content" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modelName">Model Name:</label>
+                            <input type="text" class="form-control" id="modelName" name="model.name" required>
+                        </div>
+                        <div id="variables">
+                            <div class="form-group">
+                                <label for="variableName">Variable Name:</label>
+                                <input type="text" class="form-control" id="variableName" name="variables[0].name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="variableValue">Variable Value:</label>
+                                <input type="text" class="form-control" id="variableValue" name="variables[0].value" required>
+                            </div>
+                        </div>
+                        <div class="col-auto my-1">
+                        <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+                        </div>
+                    </form>
+
+                    <script th:inline="javascript">
+                        function submitForm() {
+                            var formData = {
+                                messages: [
+                                    {
+                                        role: document.getElementById('systemRole').value,
+                                        content: document.getElementById('systemContent').value
+                                    },
+                                    {
+                                        role: document.getElementById('userRole').value,
+                                        content: document.getElementById('userContent').value
+                                    }
+                                ],
+                                model: {
+                                    name: document.getElementById('modelName').value
+                                },
+                                variables: [
+                                    {
+                                        name: document.getElementById('variableName').value,
+                                        value: document.getElementById('variableValue').value
+                                    }
+                                ]
+                            };
+
+                            var jsonData = JSON.stringify(formData);
+                            console.log(jsonData);
+
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', '/api/v1/travel/frontend', false);
+                            xhr.setRequestHeader('Content-Type', 'application/json');
+                            xhr.send(jsonData);
+                        }
+
+                     </script>
+                </div>
+
+                <div id="resultDiv" >
+                    <div class="col-auto my-1" >
+                        <p> Here is the data </p>
+                        <button id="loadbutton" type="button" class="btn btn-primary" onclick="reloadPage()">Load the data </button>
+                    </div>
+
+                    <script th:inline="javascript">
+
+                      var updatedContent = [[${data}]];
+                             console.log(updatedContent)
+                                if (updatedContent && updatedContent.success === true) {
+                                        var resultElement = document.createElement('p');
+                                        resultElement.textContent = updatedContent.responseText;
+                                        document.getElementById('resultDiv').appendChild(resultElement);
+
+                                    }
+<!--                                     var button = document.getElementById('loadbutton');-->
+<!--                                    button.style.display = 'none';-->
+
+
+                            function reloadPage() {
+                                 location.reload(true);
+                            }
+
+                    </script>
+                </div>
+
+            </div>
+            <footer><p>Travel Webapp</p></footer>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
